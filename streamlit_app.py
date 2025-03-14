@@ -356,10 +356,13 @@ def main():
                         st.error(f"Method did not converge. Reason: {result.get('error_message', 'Unknown')}")
                     
                     # Method result summary
+                    root_value = result.get('root')
+                    conv_rate = result.get('convergence_rate')
+                    
                     st.markdown(f"""
-                    **Root found**: {result.get('root', 'N/A'):.10f}  
+                    **Root found**: {f"{root_value:.10f}" if root_value is not None else "N/A"}  
                     **Iterations**: {result.get('iterations_count', 'N/A')}  
-                    **Convergence rate**: {result.get('convergence_rate', 'N/A'):.4f} if result.get('convergence_rate') is not None else "N/A"
+                    **Convergence rate**: {f"{conv_rate:.4f}" if conv_rate is not None else "N/A"}
                     """)
                     
                     # Error convergence plot
