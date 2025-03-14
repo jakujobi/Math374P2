@@ -297,7 +297,7 @@ def secant_method(
             fa, fb = fb, fa
         
         # Compute the update
-        if fb == fa:  # Avoid division by zero
+        if abs(fb - fa) < 1e-15:  # More robust check for near-zero division
             return {
                 'root': a,
                 'iterations': iterations,
@@ -305,7 +305,7 @@ def secant_method(
                 'iterations_count': k-1,
                 'error_history': error_history,
                 'function_values': function_values,
-                'error_message': "Division by zero encountered"
+                'error_message': "Division by zero encountered (function values too close)"
             }
             
         d = (b - a) / (fb - fa) * fa
@@ -392,5 +392,6 @@ def estimate_convergence_rate(error_history: List[float]) -> Optional[float]:
         # Use polyfit to get the slope of the linear regression
         slope, _ = np.polyfit(log_errors_prev, log_errors, 1)
         return slope
-    except:
+    except (np.linalg.LinAlgError, ValueError) as e:
+        # Catch specific errors related to linear algebra problems or invalid values
         return None

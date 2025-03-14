@@ -359,7 +359,7 @@ def main():
                     st.markdown(f"""
                     **Root found**: {result.get('root', 'N/A'):.10f}  
                     **Iterations**: {result.get('iterations_count', 'N/A')}  
-                    **Convergence rate**: {result.get('convergence_rate', 'N/A'):.4f} if result.get('convergence_rate') is not None else "N/A"
+                    **Convergence rate**: {result.get('convergence_rate', 'N/A'):.4f if result.get('convergence_rate') is not None else "N/A"}
                     """)
                     
                     # Error convergence plot

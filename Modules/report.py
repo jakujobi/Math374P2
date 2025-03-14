@@ -59,7 +59,7 @@ def render_methods_explanation():
             w ← f(c)
    
       b. Check convergence:
-            If |e| < δ or |w| < ε then:
+            If |e| < δ₁ or |w| < δ₂ then:
                Stop (convergence criteria met)
    
       c. Check sign change:
@@ -477,7 +477,7 @@ def render_pseudocode():
    INPUT:
    - Interval endpoints: a, b
    - Maximum iterations: M
-   - Error tolerances: δ, ε
+   - Error tolerances: δ₁, δ₂
    
    VARIABLES:
    - u, v, w, e, c
@@ -498,7 +498,7 @@ def render_pseudocode():
             w ← f(c)
    
       b. Check convergence:
-            If |e| < δ or |w| < ε then:
+            If |e| < δ₁ or |w| < δ₂ then:
                Stop (convergence criteria met)
    
       c. Check sign change:
