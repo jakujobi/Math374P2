@@ -92,7 +92,7 @@ This will start a local web server and automatically open the application in you
 
 ## Author
 
-[Your Name]
+John AKujobi
 
 ## License
 
