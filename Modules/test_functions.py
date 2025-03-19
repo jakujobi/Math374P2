@@ -4,12 +4,25 @@ Test Functions Module
 This module defines the test functions and their derivatives for the root-finding methods.
 These functions are used to evaluate the performance of numerical methods.
 
-Functions:
-    - f1(x) = x^2 - 4*sin(x)
-    - f2(x) = x^2 - 1
-    - f3(x) = x^3 - 3*x^2 + 3*x - 1
+The module includes three primary test functions with diverse properties:
+
+1. f1(x) = x^2 - 4*sin(x)
+   - Combines polynomial and trigonometric components
+   - Has multiple roots and interesting behavior
+   - Useful for testing methods on more complex functions
+
+2. f2(x) = x^2 - 1
+   - Simple quadratic function with analytical roots at x = ±1
+   - Useful as a baseline test case with well-understood behavior
+   - Provides predictable convergence patterns
+
+3. f3(x) = x^3 - 3*x^2 + 3*x - 1
+   - Cubic polynomial with a triple root at x = 1
+   - Challenging for numerical methods due to the multiplicity of the root
+   - Tests the robustness of methods when faced with nearly-flat regions
 
 Each function has a corresponding derivative function for use with Newton's method.
+The module also provides utility functions to retrieve information about these functions.
 """
 
 import numpy as np
@@ -19,6 +32,10 @@ from typing import Callable, Dict, Tuple, List
 def f1(x: float) -> float:
     """
     Function f1(x) = x^2 - 4*sin(x)
+    
+    This function combines a polynomial term (x^2) with a trigonometric term (-4*sin(x)).
+    It has multiple roots and exhibits interesting behavior that makes it suitable
+    for testing numerical methods.
     
     Args:
         x: Input value
@@ -33,6 +50,8 @@ def df1(x: float) -> float:
     """
     Derivative of f1(x) = x^2 - 4*sin(x)
     f1'(x) = 2*x - 4*cos(x)
+    
+    This is the analytical derivative of f1, used in Newton's method.
     
     Args:
         x: Input value

@@ -4,11 +4,25 @@ Visualization Module
 This module provides functions for visualizing the numerical methods,
 their convergence, and comparisons between different methods.
 
-Functions include:
-- Plotting test functions
-- Visualizing iteration steps
-- Plotting error convergence
-- Comparing convergence rates across methods
+Key Visualization Components:
+1. Function Plotting - Visualizes the test functions with roots and iterations
+2. Error Convergence - Shows how error decreases over iterations on log scale
+3. Convergence Rate Comparison - Compares different methods' performance
+4. Iteration Tables - Displays detailed step-by-step information
+5. Animation Frames - Creates step-by-step visual demonstrations of each method
+
+Design Goals:
+- Provide clear, intuitive visualizations that help understand the numerical methods
+- Enable direct comparison between different methods
+- Support interactive elements for exploring the iteration process
+- Create both static plots and dynamic/animated visualizations
+- Ensure consistent styling and color schemes across all visualizations
+
+Implementation Notes:
+- Uses Matplotlib for creating high-quality plots
+- Creates self-contained figure objects that can be displayed in Streamlit
+- Applies appropriate scales (linear/logarithmic) based on the visualization needs
+- Includes detailed annotations, legends, and labels for clarity
 """
 
 import numpy as np
