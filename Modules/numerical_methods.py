@@ -2,12 +2,27 @@
 Numerical Methods for Root Finding
 
 This module implements three numerical methods for finding roots of nonlinear equations:
-1. Bisection Method
-2. Newton's Method
-3. Secant Method
+1. Bisection Method - A reliable method that works by repeatedly bisecting an interval
+2. Newton's Method - A fast-converging method that uses derivatives
+3. Secant Method - A derivative-free method similar to Newton's but uses finite differences
 
 Each method follows the pseudocode provided in the project description
 and includes functionality for tracking iterations, errors, and convergence.
+
+The module also provides a utility function for estimating convergence rates
+based on the error history of a numerical method.
+
+Implementation Notes:
+- All methods return detailed dictionaries with iteration history and convergence information
+- Special care is taken to handle potential numerical issues (division by near-zero values, etc.)
+- Error history is tracked for convergence rate estimation
+
+Project Information:
+- Project 2 for Math 374: Scientific Computation (Spring 2025)
+- South Dakota State University
+- Developed by: John Akujobi (github.com/jakujobi)
+- Website: jakujobi.com
+- Professor: Dr. Jung-Han Kimn
 """
 
 import numpy as np
@@ -25,12 +40,17 @@ def bisection_method(
     """
     Implements the bisection method for finding roots of a nonlinear equation.
     
+    The bisection method works by repeatedly dividing an interval in half and
+    selecting the subinterval where the root must lie. It is based on the
+    Intermediate Value Theorem: if a continuous function changes sign over an
+    interval, it must have a root in that interval.
+    
     Args:
         f: The function for which to find roots
         a: Left endpoint of the initial interval
         b: Right endpoint of the initial interval
-        delta: Tolerance for the interval width
-        epsilon: Tolerance for the function value
+        delta: Tolerance for the interval width (stopping criterion δ₁)
+        epsilon: Tolerance for the function value (stopping criterion δ₂)
         max_iterations: Maximum number of iterations
         
     Returns:
@@ -41,6 +61,12 @@ def bisection_method(
             - 'iterations_count': Number of iterations performed
             - 'error_history': List of error values at each iteration
             - 'function_values': List of function values at each iteration
+            - 'error_message': Description of the error (if convergence failed)
+    
+    Mathematical Details:
+        - Order of convergence: Linear (order 1)
+        - Guaranteed to converge if f is continuous and f(a) and f(b) have opposite signs
+        - Each iteration reduces the interval size by half
     """
     # Compute initial function values
     u = f(a)

@@ -1,15 +1,36 @@
 """
 Test Functions Module
 
-This module defines the test functions and their derivatives for the root-finding methods.
-These functions are used to evaluate the performance of numerical methods.
+This module provides a collection of test functions and their derivatives for
+evaluating and comparing numerical root-finding methods.
 
-Functions:
-    - f1(x) = x^2 - 4*sin(x)
-    - f2(x) = x^2 - 1
-    - f3(x) = x^3 - 3*x^2 + 3*x - 1
+Each function is designed to showcase different characteristics that can affect
+the performance of root-finding algorithms:
 
-Each function has a corresponding derivative function for use with Newton's method.
+1. f1(x) = x^2 - 4*sin(x)
+   - Combines polynomial and trigonometric terms
+   - Has multiple roots
+   - Demonstrates interesting behavior near roots
+
+2. f2(x) = x^2 - 1
+   - Simple quadratic function with known roots at x = ±1
+   - Useful for basic validation of methods
+   - Derivative is straightforward (2x)
+
+3. f3(x) = x^3 - 3*x^2 + 3*x - 1
+   - Cubic polynomial with a triple root at x = 1
+   - Challenges methods due to the multiplicity of the root
+   - Tests method behavior near roots with zero derivatives
+
+The module also provides utility functions for retrieving function details
+and suggested intervals for root finding.
+
+Project Information:
+- Project 2 for Math 374: Scientific Computation (Spring 2025)
+- South Dakota State University
+- Developed by: John Akujobi (github.com/jakujobi)
+- Website: jakujobi.com
+- Professor: Dr. Jung-Han Kimn
 """
 
 import numpy as np
@@ -19,6 +40,10 @@ from typing import Callable, Dict, Tuple, List
 def f1(x: float) -> float:
     """
     Function f1(x) = x^2 - 4*sin(x)
+    
+    This function combines a polynomial term (x^2) with a trigonometric term (-4*sin(x)).
+    It has multiple roots and exhibits interesting behavior that makes it suitable
+    for testing numerical methods.
     
     Args:
         x: Input value
@@ -33,6 +58,8 @@ def df1(x: float) -> float:
     """
     Derivative of f1(x) = x^2 - 4*sin(x)
     f1'(x) = 2*x - 4*cos(x)
+    
+    This is the analytical derivative of f1, used in Newton's method.
     
     Args:
         x: Input value

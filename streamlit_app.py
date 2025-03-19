@@ -1,3 +1,26 @@
+"""
+Root-Finding Methods Analysis
+
+This is the main Streamlit application that integrates all modules to provide an
+interactive interface for analyzing and comparing different numerical methods for
+finding roots of nonlinear equations.
+
+The application implements three methods:
+1. Bisection Method
+2. Newton's Method
+3. Secant Method
+
+It allows users to select test functions, configure method parameters, visualize results,
+and analyze convergence rates.
+
+Project Information:
+- Project 2 for Math 374: Scientific Computation (Spring 2025)
+- South Dakota State University
+- Developed by: John Akujobi (github.com/jakujobi)
+- Website: jakujobi.com
+- Professor: Dr. Jung-Han Kimn
+"""
+
 import streamlit as st
 import numpy as np
 import matplotlib.pyplot as plt
@@ -11,7 +34,7 @@ from Modules.report import render_report, render_pseudocode
 
 # Set page configuration
 st.set_page_config(
-    page_title="Root-Finding Methods Analysis",
+    page_title="Root-Finding Methods Analysis: Math 374 Project 2 - John Akujobi",
     page_icon="📊",
     layout="wide",
     initial_sidebar_state="expanded",
@@ -53,12 +76,34 @@ def run_root_finding_methods(function_id, settings):
     """
     Run all three root-finding methods on the selected function with specified settings.
     
+    This is a core function that executes the numerical methods with the user-configured
+    parameters and collects their results for analysis and visualization. Each method
+    is run only if enabled in the settings, allowing for selective comparison.
+    
+    Process flow:
+    1. Retrieve the function and its derivative from the function database
+    2. Run each enabled numerical method with the specified settings
+    3. Estimate convergence rates for each method based on error history
+    4. Compile all results into a single dictionary keyed by method name
+    
     Args:
-        function_id: ID of the function to analyze
-        settings: Dictionary of settings for each method
+        function_id: ID of the function to analyze (corresponds to an entry in test_functions.py)
+        settings: Dictionary of settings for each method including:
+            - bisection: Parameters for the bisection method
+            - newton: Parameters for Newton's method
+            - secant: Parameters for the secant method
+            Each method's settings contain:
+            - use: Boolean flag indicating whether to run this method
+            - method-specific parameters like a, b, x0, tolerances, etc.
         
     Returns:
-        Dictionary with results from each method
+        Dictionary with results from each method, where keys are method names
+        and values are dictionaries containing the method's output including:
+        - root: Approximated root value
+        - iterations: Detailed iteration history
+        - converged: Whether the method converged
+        - error_history: List of error values at each iteration
+        - convergence_rate: Estimated order of convergence
     """
     # Get function details
     func_details = get_function_details(function_id)
@@ -107,6 +152,31 @@ def run_root_finding_methods(function_id, settings):
 
 
 def main():
+    """
+    Main application function that sets up the Streamlit interface and handles user interaction.
+    
+    This function is responsible for:
+    1. Setting up the sidebar for user input and configuration
+        - Function selection with description and mathematical representation
+        - Method-specific parameter controls with appropriate defaults
+        - Advanced settings for fine-tuning method parameters
+    
+    2. Creating the main content area with multiple tabs
+        - Analysis Dashboard: Interactive visualizations and result summaries
+        - Detailed Report: Mathematical explanation of methods and analysis
+        - Pseudocode: Algorithmic representation of each method
+        - Code Report: Implementation details and architecture overview
+    
+    3. Managing application state and workflow
+        - Storing results in session state for persistence between interactions
+        - Retrieving and displaying previous results when available
+        - Orchestrating the analysis workflow from input to visualization
+    
+    The function follows a reactive design pattern where:
+    - User inputs in the sidebar trigger computations when "Run Analysis" is clicked
+    - Results are stored in session state and displayed across multiple views
+    - Each tab provides a different perspective on the same underlying data
+    """
     # Sidebar with function selection and settings
     with st.sidebar:
         st.title("Settings")
@@ -267,7 +337,7 @@ def main():
     """)
     
     # Create tabs for different views
-    tabs = st.tabs(["Analysis Dashboard", "Detailed Report", "Pseudocode"])
+    tabs = st.tabs(["Analysis Dashboard", "Detailed Report", "Pseudocode", "Code Report"])
     
     # Check if results are available
     has_results = "results" in st.session_state
@@ -425,7 +495,275 @@ def main():
     # Pseudocode Tab
     with tabs[2]:
         render_pseudocode()
-
+    
+    # Code Report Tab
+    with tabs[3]:
+        def render_code_report():
+            """
+            Render the Code Report tab content with detailed information about the project implementation.
+            """
+            st.markdown("# Code Report")
+            
+            st.markdown("""
+            ## Developer Information
+            
+            **Developer:** John Akujobi  
+            **GitHub:** [github.com/jakujobi](https://github.com/jakujobi)  
+            **Website:** [jakujobi.com](https://jakujobi.com)  
+            **Project:** Project 2 for Math 374: Scientific Computation (Spring 2025)  
+            **Institution:** South Dakota State University  
+            **Professor:** Dr. Jung-Han Kimn  
+            
+            ## Project Architecture
+            
+            The project follows a modular architecture to promote code reusability, maintainability, 
+            and separation of concerns. It is organized into the following modules:
+            
+            ### Project Structure
+            
+            ```
+            Math374P2/
+            ├── Modules/
+            │   ├── numerical_methods.py  # Implementation of root-finding methods
+            │   ├── test_functions.py     # Test functions and their derivatives
+            │   ├── visualization.py      # Functions for plotting and data visualization
+            │   └── report.py             # Report generation and mathematical explanations
+            ├── streamlit_app.py          # Main Streamlit application
+            ├── requirements.txt          # Project dependencies
+            └── README.md                 # Project documentation
+            ```
+            
+            ### 1. Numerical Methods (`numerical_methods.py`)
+            
+            This module implements the core numerical algorithms for root finding.
+            
+            #### Key Functions:
+            
+            1. **`bisection_method(f, a, b, delta, epsilon, max_iterations)`**
+                - **Purpose**: Implements the bisection algorithm, which repeatedly bisects an interval and selects the subinterval containing the root.
+                - **Implementation Details**:
+                    - Uses the Intermediate Value Theorem: if f(a) and f(b) have opposite signs, there must be a root in [a, b]
+                    - At each iteration, computes the midpoint c = (a + b)/2 and determines which subinterval contains the root
+                    - Tracks the error history and function values at each iteration
+                    - Applies termination criteria based on interval width and function value tolerances
+            
+            2. **`newton_method(f, df, x0, delta1, delta2, epsilon, max_iterations)`**
+               - **Purpose**: Implements Newton's method, which uses function derivatives to quickly converge to a root.
+               - **Implementation Details**:
+                    - Uses the formula: x_{n+1} = x_n - f(x_n)/f'(x_n)
+                    - Checks for small derivatives to avoid numerical instability
+                    - Tracks the error history and convergence behavior
+                    - Applies termination criteria based on step size and function value tolerances
+            
+            3. **`secant_method(f, a, b, delta1, delta2, max_iterations)`**
+               - **Purpose**: Implements the secant method, which approximates the derivative using finite differences.
+               - **Implementation Details**:
+                    - Uses the formula: x_{n+1} = x_n - f(x_n) * (x_n - x_{n-1})/(f(x_n) - f(x_{n-1}))
+                    - Checks for near-zero denominators to ensure numerical stability
+                    - Swaps points based on function value magnitudes for better convergence
+                    - Tracks iterations and error history
+            
+            4. **`estimate_convergence_rate(error_history)`**
+               - **Purpose**: Estimates the convergence rate of a numerical method based on the error history.
+               - **Implementation Details**:
+                    - Uses linear regression on the log-log plot of consecutive errors
+                    - The slope of this line approximates the order of convergence
+            """)
+            
+            st.markdown("""
+            ### 2. Test Functions (`test_functions.py`)
+            
+            This module defines the test functions and their derivatives used to evaluate the numerical methods.
+            
+            #### Key Functions:
+            
+            1. **Test Functions**:
+                - `f1(x) = x^2 - 4*sin(x)` - Combines polynomial and trigonometric terms
+                - `f2(x) = x^2 - 1` - Simple quadratic with known roots at ±1
+                - `f3(x) = x^3 - 3*x^2 + 3*x - 1` - Cubic polynomial with a triple root at x=1
+            
+            2. **Derivative Functions**:
+                - `df1(x) = 2*x - 4*cos(x)`
+                - `df2(x) = 2*x`
+                - `df3(x) = 3*x^2 - 6*x + 3`
+            
+            3. **Utility Functions**:
+                - `get_function_details(function_id)` - Retrieves information about a specific test function
+                - `get_all_functions()` - Returns a dictionary of all available test functions
+            
+            ### 3. Visualization (`visualization.py`)
+            
+            This module provides functions for visualizing the numerical methods, their convergence, and comparisons.
+            
+            #### Key Functions:
+            
+            1. **`plot_function(f, x_range, title, ...)`**
+                - Plots a function over a specified range with optional root marking
+            
+            2. **`plot_error_convergence(error_history, ...)`**
+                - Visualizes how the error decreases with iterations, using logarithmic scaling
+            
+            3. **`compare_convergence_rates(results, ...)`**
+                - Creates a comparative visualization of convergence rates across different methods
+            
+            4. **`create_iteration_table(iterations, method)`**
+                - Generates a formatted table of iteration details suitable for display
+            
+            5. **`plot_function_with_iterations_animation(f, iterations, method, ...)`**
+                - Creates an animated visualization showing how each method progresses toward the root
+            """)
+            
+            st.markdown("""
+            ### 4. Report Generation (`report.py`)
+            
+            This module provides the content and structure for the detailed mathematical report.
+            
+            #### Key Functions:
+            
+            1. **`render_introduction()`** - Introduces the root-finding methods
+            2. **`render_methods_explanation()`** - Explains the algorithms and pseudocode
+            3. **`render_termination_criteria()`** - Details the convergence conditions
+            4. **`render_convergence_rates()`** - Explains the theoretical and practical convergence rates
+            5. **`render_method_comparison(results)`** - Compares the methods' performance
+            6. **`render_function_analysis(function_id)`** - Analyzes specific test functions
+            7. **`render_conclusion(results)`** - Summarizes findings and insights
+            8. **`render_report(active_function, results)`** - Renders the complete report
+            9. **`render_pseudocode()`** - Displays detailed pseudocode for all three methods
+            
+            ### 5. Main Application (`streamlit_app.py`)
+            
+            This module integrates all other modules to create an interactive web application.
+            
+            #### Key Functions:
+            
+            1. **`run_root_finding_methods(function_id, settings)`**
+                - Runs all three numerical methods with the specified settings
+                - Collects and processes results for visualization and analysis
+            
+            2. **`main()`**
+                - Sets up the Streamlit interface with sidebar controls
+                - Creates tabs for different views (Analysis, Report, Pseudocode, Code Report)
+                - Handles user interaction and visualization rendering
+            """)
+            
+            st.markdown("""
+            ## Implementation Details
+            
+            ### Data Structures
+            
+            1. **Method Results**: Each numerical method returns a dictionary containing:
+                - `root`: The approximated root value
+                - `iterations`: Detailed information about each iteration
+                - `converged`: Boolean indicating successful convergence
+                - `iterations_count`: Total number of iterations performed
+                - `error_history`: List of error values at each iteration
+                - `function_values`: List of function values at each iteration
+            
+            2. **Function Details**: Each test function is represented by a dictionary with:
+                - `function`: The actual function object
+                - `derivative`: The derivative function object
+                - `display_name`: User-friendly name for display
+                - `latex`: LaTeX representation for mathematical display
+                - `description`: Brief description of the function
+                - `suggested_intervals`: Recommended intervals for root finding
+            
+            ### Design Patterns and Best Practices
+            
+            1. **Modular Design**: The codebase is organized into logical modules with clear responsibilities
+            
+            2. **Type Annotations**: Python type hints are used throughout the codebase to improve code clarity and enable static type checking
+            
+            3. **Comprehensive Documentation**: All functions have docstrings that explain their purpose, parameters, and return values
+            
+            4. **Error Handling**: Robust error handling is implemented, particularly for potential numerical instabilities
+            
+            5. **Configurability**: Method parameters are configurable through the UI, allowing for experimentation
+            
+            ## Development Process and Challenges
+            
+            ### Development Process
+            
+            The application was developed following these steps:
+            
+            1. **Requirements Analysis**: Understanding the mathematical theory and requirements
+            2. **Module Design**: Planning the modular structure of the application
+            3. **Implementation**: Coding the numerical methods with careful attention to numerical stability
+            4. **Visualization**: Creating informative visualizations of the methods and their results
+            5. **UI Development**: Building an intuitive Streamlit interface for user interaction
+            6. **Testing**: Verifying correct behavior on various test functions
+            7. **Documentation**: Adding comprehensive documentation throughout the codebase
+            8. **Refinement**: Improving the UI and fixing any issues
+            
+            ### Challenges and Solutions
+            
+            1. **Numerical Stability**: 
+                - Challenge: Methods like Newton's and secant can encounter division by near-zero values
+                - Solution: Implemented tolerance checks and safeguards against numerical instability
+            
+            2. **Convergence Rate Estimation**: 
+                - Challenge: Accurately estimating the order of convergence from empirical data
+                - Solution: Used linear regression on log-log plots of consecutive errors
+            
+            3. **Visualization Complexity**: 
+                - Challenge: Creating intuitive visualizations of iteration processes
+                - Solution: Developed animated visualizations that show the progression toward roots
+            
+            4. **User Interface Design**: 
+                - Challenge: Balancing complexity and usability in the interface
+                - Solution: Organized the interface into tabs and used expandable sections for advanced settings
+            """)
+        
+        render_code_report()
 
 if __name__ == "__main__":
+    st.set_page_config(
+        page_title="Root-Finding Methods Analysis",
+        page_icon="📊",
+        layout="wide",
+        initial_sidebar_state="expanded",
+    )
+    
+    # Add custom CSS for footer
+    st.markdown(
+        """
+        <style>
+        .footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            background-color: rgba(240, 242, 246, 0.9);
+            color: #262730;
+            text-align: center;
+            padding: 10px;
+            font-size: 0.8rem;
+            border-top: 1px solid #e6e9ef;
+            z-index: 999;
+        }
+        .footer a {
+            color: #0068c9;
+            text-decoration: none;
+        }
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
+    
+    # Add footer with developer information
+    st.markdown(
+        """
+        <div class="footer">
+            Project 2 for Math 374: Scientific Computation (Spring 2025) | 
+            South Dakota State University | 
+            Developed by <a href="https://github.com/jakujobi" target="_blank">John Akujobi</a> | 
+            <a href="https://jakujobi.com" target="_blank">jakujobi.com</a> | 
+            Professor: Dr. Jung-Han Kimn
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+    
     main()
