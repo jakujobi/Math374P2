@@ -11,7 +11,7 @@ from Modules.report import render_report, render_pseudocode
 
 # Set page configuration
 st.set_page_config(
-    page_title="Root-Finding Methods Analysis",
+    page_title="Root-Finding Methods Analysis: Math 374 Project 2 - John Akujobi",
     page_icon="📊",
     layout="wide",
     initial_sidebar_state="expanded",
