@@ -16,6 +16,13 @@ Implementation Notes:
 - All methods return detailed dictionaries with iteration history and convergence information
 - Special care is taken to handle potential numerical issues (division by near-zero values, etc.)
 - Error history is tracked for convergence rate estimation
+
+Project Information:
+- Project 2 for Math 374: Scientific Computation (Spring 2025)
+- South Dakota State University
+- Developed by: John Akujobi (github.com/jakujobi)
+- Website: jakujobi.com
+- Professor: Dr. Jung-Han Kimn
 """
 
 import numpy as np

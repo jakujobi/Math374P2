@@ -1,28 +1,36 @@
 """
 Test Functions Module
 
-This module defines the test functions and their derivatives for the root-finding methods.
-These functions are used to evaluate the performance of numerical methods.
+This module provides a collection of test functions and their derivatives for
+evaluating and comparing numerical root-finding methods.
 
-The module includes three primary test functions with diverse properties:
+Each function is designed to showcase different characteristics that can affect
+the performance of root-finding algorithms:
 
 1. f1(x) = x^2 - 4*sin(x)
-   - Combines polynomial and trigonometric components
-   - Has multiple roots and interesting behavior
-   - Useful for testing methods on more complex functions
+   - Combines polynomial and trigonometric terms
+   - Has multiple roots
+   - Demonstrates interesting behavior near roots
 
 2. f2(x) = x^2 - 1
-   - Simple quadratic function with analytical roots at x = ±1
-   - Useful as a baseline test case with well-understood behavior
-   - Provides predictable convergence patterns
+   - Simple quadratic function with known roots at x = ±1
+   - Useful for basic validation of methods
+   - Derivative is straightforward (2x)
 
 3. f3(x) = x^3 - 3*x^2 + 3*x - 1
    - Cubic polynomial with a triple root at x = 1
-   - Challenging for numerical methods due to the multiplicity of the root
-   - Tests the robustness of methods when faced with nearly-flat regions
+   - Challenges methods due to the multiplicity of the root
+   - Tests method behavior near roots with zero derivatives
 
-Each function has a corresponding derivative function for use with Newton's method.
-The module also provides utility functions to retrieve information about these functions.
+The module also provides utility functions for retrieving function details
+and suggested intervals for root finding.
+
+Project Information:
+- Project 2 for Math 374: Scientific Computation (Spring 2025)
+- South Dakota State University
+- Developed by: John Akujobi (github.com/jakujobi)
+- Website: jakujobi.com
+- Professor: Dr. Jung-Han Kimn
 """
 
 import numpy as np

@@ -12,6 +12,13 @@ The application implements three methods:
 
 It allows users to select test functions, configure method parameters, visualize results,
 and analyze convergence rates.
+
+Project Information:
+- Project 2 for Math 374: Scientific Computation (Spring 2025)
+- South Dakota State University
+- Developed by: John Akujobi (github.com/jakujobi)
+- Website: jakujobi.com
+- Professor: Dr. Jung-Han Kimn
 """
 
 import streamlit as st
@@ -493,14 +500,19 @@ def main():
     with tabs[3]:
         def render_code_report():
             """
-            Render a comprehensive code report that explains the implementation details
-            of all modules, functions, and classes in the project.
+            Render the Code Report tab content with detailed information about the project implementation.
             """
-            st.markdown("""
-            # Code Implementation Report
+            st.markdown("# Code Report")
             
-            This report provides a detailed overview of the code structure, implementation details,
-            and design decisions for this root-finding methods analysis application.
+            st.markdown("""
+            ## Developer Information
+            
+            **Developer:** John Akujobi  
+            **GitHub:** [github.com/jakujobi](https://github.com/jakujobi)  
+            **Website:** [jakujobi.com](https://jakujobi.com)  
+            **Project:** Project 2 for Math 374: Scientific Computation (Spring 2025)  
+            **Institution:** South Dakota State University  
+            **Professor:** Dr. Jung-Han Kimn  
             
             ## Project Architecture
             
@@ -520,50 +532,42 @@ def main():
             ├── requirements.txt          # Project dependencies
             └── README.md                 # Project documentation
             ```
-            """)
-            
-            st.markdown("""
-            ## Module Descriptions
             
             ### 1. Numerical Methods (`numerical_methods.py`)
             
-            This module implements the three core numerical methods for finding roots of nonlinear equations.
+            This module implements the core numerical algorithms for root finding.
             
             #### Key Functions:
             
             1. **`bisection_method(f, a, b, delta, epsilon, max_iterations)`**
-            
-               - **Purpose**: Implements the bisection algorithm, which repeatedly bisects an interval and selects the subinterval containing the root.
-               - **Implementation Details**:
-                 - Uses the Intermediate Value Theorem: if f(a) and f(b) have opposite signs, there must be a root in [a, b]
-                 - At each iteration, computes the midpoint c = (a + b)/2 and determines which subinterval contains the root
-                 - Tracks the error history and function values at each iteration
-                 - Applies termination criteria based on interval width and function value tolerances
+                - **Purpose**: Implements the bisection algorithm, which repeatedly bisects an interval and selects the subinterval containing the root.
+                - **Implementation Details**:
+                    - Uses the Intermediate Value Theorem: if f(a) and f(b) have opposite signs, there must be a root in [a, b]
+                    - At each iteration, computes the midpoint c = (a + b)/2 and determines which subinterval contains the root
+                    - Tracks the error history and function values at each iteration
+                    - Applies termination criteria based on interval width and function value tolerances
             
             2. **`newton_method(f, df, x0, delta1, delta2, epsilon, max_iterations)`**
-            
                - **Purpose**: Implements Newton's method, which uses function derivatives to quickly converge to a root.
                - **Implementation Details**:
-                 - Uses the formula: x_{n+1} = x_n - f(x_n)/f'(x_n)
-                 - Checks for small derivatives to avoid numerical instability
-                 - Tracks the error history and convergence behavior
-                 - Applies termination criteria based on step size and function value tolerances
+                    - Uses the formula: x_{n+1} = x_n - f(x_n)/f'(x_n)
+                    - Checks for small derivatives to avoid numerical instability
+                    - Tracks the error history and convergence behavior
+                    - Applies termination criteria based on step size and function value tolerances
             
             3. **`secant_method(f, a, b, delta1, delta2, max_iterations)`**
-            
                - **Purpose**: Implements the secant method, which approximates the derivative using finite differences.
                - **Implementation Details**:
-                 - Uses the formula: x_{n+1} = x_n - f(x_n) * (x_n - x_{n-1})/(f(x_n) - f(x_{n-1}))
-                 - Checks for near-zero denominators to ensure numerical stability
-                 - Swaps points based on function value magnitudes for better convergence
-                 - Tracks iterations and error history
+                    - Uses the formula: x_{n+1} = x_n - f(x_n) * (x_n - x_{n-1})/(f(x_n) - f(x_{n-1}))
+                    - Checks for near-zero denominators to ensure numerical stability
+                    - Swaps points based on function value magnitudes for better convergence
+                    - Tracks iterations and error history
             
             4. **`estimate_convergence_rate(error_history)`**
-            
                - **Purpose**: Estimates the convergence rate of a numerical method based on the error history.
                - **Implementation Details**:
-                 - Uses linear regression on the log-log plot of consecutive errors
-                 - The slope of this line approximates the order of convergence
+                    - Uses linear regression on the log-log plot of consecutive errors
+                    - The slope of this line approximates the order of convergence
             """)
             
             st.markdown("""
@@ -574,18 +578,18 @@ def main():
             #### Key Functions:
             
             1. **Test Functions**:
-               - `f1(x) = x^2 - 4*sin(x)` - Combines polynomial and trigonometric terms
-               - `f2(x) = x^2 - 1` - Simple quadratic with known roots at ±1
-               - `f3(x) = x^3 - 3*x^2 + 3*x - 1` - Cubic polynomial with a triple root at x=1
+                - `f1(x) = x^2 - 4*sin(x)` - Combines polynomial and trigonometric terms
+                - `f2(x) = x^2 - 1` - Simple quadratic with known roots at ±1
+                - `f3(x) = x^3 - 3*x^2 + 3*x - 1` - Cubic polynomial with a triple root at x=1
             
             2. **Derivative Functions**:
-               - `df1(x) = 2*x - 4*cos(x)`
-               - `df2(x) = 2*x`
-               - `df3(x) = 3*x^2 - 6*x + 3`
+                - `df1(x) = 2*x - 4*cos(x)`
+                - `df2(x) = 2*x`
+                - `df3(x) = 3*x^2 - 6*x + 3`
             
             3. **Utility Functions**:
-               - `get_function_details(function_id)` - Retrieves information about a specific test function
-               - `get_all_functions()` - Returns a dictionary of all available test functions
+                - `get_function_details(function_id)` - Retrieves information about a specific test function
+                - `get_all_functions()` - Returns a dictionary of all available test functions
             
             ### 3. Visualization (`visualization.py`)
             
@@ -594,19 +598,19 @@ def main():
             #### Key Functions:
             
             1. **`plot_function(f, x_range, title, ...)`**
-               - Plots a function over a specified range with optional root marking
+                - Plots a function over a specified range with optional root marking
             
             2. **`plot_error_convergence(error_history, ...)`**
-               - Visualizes how the error decreases with iterations, using logarithmic scaling
+                - Visualizes how the error decreases with iterations, using logarithmic scaling
             
             3. **`compare_convergence_rates(results, ...)`**
-               - Creates a comparative visualization of convergence rates across different methods
+                - Creates a comparative visualization of convergence rates across different methods
             
             4. **`create_iteration_table(iterations, method)`**
-               - Generates a formatted table of iteration details suitable for display
+                - Generates a formatted table of iteration details suitable for display
             
             5. **`plot_function_with_iterations_animation(f, iterations, method, ...)`**
-               - Creates an animated visualization showing how each method progresses toward the root
+                - Creates an animated visualization showing how each method progresses toward the root
             """)
             
             st.markdown("""
@@ -633,13 +637,13 @@ def main():
             #### Key Functions:
             
             1. **`run_root_finding_methods(function_id, settings)`**
-               - Runs all three numerical methods with the specified settings
-               - Collects and processes results for visualization and analysis
+                - Runs all three numerical methods with the specified settings
+                - Collects and processes results for visualization and analysis
             
             2. **`main()`**
-               - Sets up the Streamlit interface with sidebar controls
-               - Creates tabs for different views (Analysis, Report, Pseudocode, Code Report)
-               - Handles user interaction and visualization rendering
+                - Sets up the Streamlit interface with sidebar controls
+                - Creates tabs for different views (Analysis, Report, Pseudocode, Code Report)
+                - Handles user interaction and visualization rendering
             """)
             
             st.markdown("""
@@ -648,20 +652,20 @@ def main():
             ### Data Structures
             
             1. **Method Results**: Each numerical method returns a dictionary containing:
-               - `root`: The approximated root value
-               - `iterations`: Detailed information about each iteration
-               - `converged`: Boolean indicating successful convergence
-               - `iterations_count`: Total number of iterations performed
-               - `error_history`: List of error values at each iteration
-               - `function_values`: List of function values at each iteration
+                - `root`: The approximated root value
+                - `iterations`: Detailed information about each iteration
+                - `converged`: Boolean indicating successful convergence
+                - `iterations_count`: Total number of iterations performed
+                - `error_history`: List of error values at each iteration
+                - `function_values`: List of function values at each iteration
             
             2. **Function Details**: Each test function is represented by a dictionary with:
-               - `function`: The actual function object
-               - `derivative`: The derivative function object
-               - `display_name`: User-friendly name for display
-               - `latex`: LaTeX representation for mathematical display
-               - `description`: Brief description of the function
-               - `suggested_intervals`: Recommended intervals for root finding
+                - `function`: The actual function object
+                - `derivative`: The derivative function object
+                - `display_name`: User-friendly name for display
+                - `latex`: LaTeX representation for mathematical display
+                - `description`: Brief description of the function
+                - `suggested_intervals`: Recommended intervals for root finding
             
             ### Design Patterns and Best Practices
             
@@ -693,23 +697,73 @@ def main():
             ### Challenges and Solutions
             
             1. **Numerical Stability**: 
-               - Challenge: Methods like Newton's and secant can encounter division by near-zero values
-               - Solution: Implemented tolerance checks and safeguards against numerical instability
+                - Challenge: Methods like Newton's and secant can encounter division by near-zero values
+                - Solution: Implemented tolerance checks and safeguards against numerical instability
             
             2. **Convergence Rate Estimation**: 
-               - Challenge: Accurately estimating the order of convergence from empirical data
-               - Solution: Used linear regression on log-log plots of consecutive errors
+                - Challenge: Accurately estimating the order of convergence from empirical data
+                - Solution: Used linear regression on log-log plots of consecutive errors
             
             3. **Visualization Complexity**: 
-               - Challenge: Creating intuitive visualizations of iteration processes
-               - Solution: Developed animated visualizations that show the progression toward roots
+                - Challenge: Creating intuitive visualizations of iteration processes
+                - Solution: Developed animated visualizations that show the progression toward roots
             
             4. **User Interface Design**: 
-               - Challenge: Balancing complexity and usability in the interface
-               - Solution: Organized the interface into tabs and used expandable sections for advanced settings
+                - Challenge: Balancing complexity and usability in the interface
+                - Solution: Organized the interface into tabs and used expandable sections for advanced settings
             """)
         
         render_code_report()
 
 if __name__ == "__main__":
+    st.set_page_config(
+        page_title="Root-Finding Methods Analysis",
+        page_icon="📊",
+        layout="wide",
+        initial_sidebar_state="expanded",
+    )
+    
+    # Add custom CSS for footer
+    st.markdown(
+        """
+        <style>
+        .footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            background-color: rgba(240, 242, 246, 0.9);
+            color: #262730;
+            text-align: center;
+            padding: 10px;
+            font-size: 0.8rem;
+            border-top: 1px solid #e6e9ef;
+            z-index: 999;
+        }
+        .footer a {
+            color: #0068c9;
+            text-decoration: none;
+        }
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
+    
+    # Add footer with developer information
+    st.markdown(
+        """
+        <div class="footer">
+            Project 2 for Math 374: Scientific Computation (Spring 2025) | 
+            South Dakota State University | 
+            Developed by <a href="https://github.com/jakujobi" target="_blank">John Akujobi</a> | 
+            <a href="https://jakujobi.com" target="_blank">jakujobi.com</a> | 
+            Professor: Dr. Jung-Han Kimn
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+    
     main()

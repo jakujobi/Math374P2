@@ -23,6 +23,13 @@ Implementation Notes:
 - Creates self-contained figure objects that can be displayed in Streamlit
 - Applies appropriate scales (linear/logarithmic) based on the visualization needs
 - Includes detailed annotations, legends, and labels for clarity
+
+Project Information:
+- Project 2 for Math 374: Scientific Computation (Spring 2025)
+- South Dakota State University
+- Developed by: John Akujobi (github.com/jakujobi)
+- Website: jakujobi.com
+- Professor: Dr. Jung-Han Kimn
 """
 
 import numpy as np
