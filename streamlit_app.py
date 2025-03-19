@@ -69,8 +69,42 @@ st.markdown("""
         overflow: auto;
         max-height: 400px;
     }
+    .footer {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background-color: rgba(240, 242, 246, 0.9);
+        color: #262730;
+        text-align: center;
+        padding: 10px;
+        font-size: 0.8rem;
+        border-top: 1px solid #e6e9ef;
+        z-index: 999;
+    }
+    .footer a {
+        color: #0068c9;
+        text-decoration: none;
+    }
+    .footer a:hover {
+        text-decoration: underline;
+    }
 </style>
 """, unsafe_allow_html=True)
+
+# Add footer with developer information
+st.markdown(
+    """
+    <div class="footer">
+        Project 2 for Math 374: Scientific Computation (Spring 2025) | 
+        South Dakota State University | 
+        Developed by <a href="https://github.com/jakujobi" target="_blank">John Akujobi</a> | 
+        <a href="https://jakujobi.com" target="_blank">jakujobi.com</a> | 
+        Professor: Dr. Jung-Han Kimn
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
 
 def run_root_finding_methods(function_id, settings):
     """
@@ -716,54 +750,4 @@ def main():
         render_code_report()
 
 if __name__ == "__main__":
-    st.set_page_config(
-        page_title="Root-Finding Methods Analysis",
-        page_icon="📊",
-        layout="wide",
-        initial_sidebar_state="expanded",
-    )
-    
-    # Add custom CSS for footer
-    st.markdown(
-        """
-        <style>
-        .footer {
-            position: fixed;
-            left: 0;
-            bottom: 0;
-            width: 100%;
-            background-color: rgba(240, 242, 246, 0.9);
-            color: #262730;
-            text-align: center;
-            padding: 10px;
-            font-size: 0.8rem;
-            border-top: 1px solid #e6e9ef;
-            z-index: 999;
-        }
-        .footer a {
-            color: #0068c9;
-            text-decoration: none;
-        }
-        .footer a:hover {
-            text-decoration: underline;
-        }
-        </style>
-        """,
-        unsafe_allow_html=True,
-    )
-    
-    # Add footer with developer information
-    st.markdown(
-        """
-        <div class="footer">
-            Project 2 for Math 374: Scientific Computation (Spring 2025) | 
-            South Dakota State University | 
-            Developed by <a href="https://github.com/jakujobi" target="_blank">John Akujobi</a> | 
-            <a href="https://jakujobi.com" target="_blank">jakujobi.com</a> | 
-            Professor: Dr. Jung-Han Kimn
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
-    
     main()
